@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HomeComponent} from './home.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from "@angular/material/sort";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -9,7 +11,11 @@ import { HomeComponent } from './home.component';
     HomeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatCardModule
   ]
 })
-export class HomeModule { }
+export class HomeModule {
+}

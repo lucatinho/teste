@@ -1,14 +1,19 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Chart, registerables} from "chart.js";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('myCanvas', {static: true})
   myCanvas: ElementRef;
+
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   medias = [
     {
@@ -43,7 +48,10 @@ export class HomeComponent implements OnInit {
       nome: "Abbie",
       nota: 10
     }
-  ]
+  ];
+
+  displayedColumns: string[] = ['nome', 'nota'];
+  dataSource = new MatTableDataSource(this.medias);
 
   constructor() {
     Chart.register(...registerables);
@@ -71,4 +79,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 }
