@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       notas.push(media.nota);
     });
 
+    let delayed: boolean;
     new Chart(this.myCanvas.nativeElement, {
       type: 'bar',
       data: {
@@ -75,11 +76,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
             data: notas
           }
         ]
+      },
+      options: {
+        responsive: true,
+        indexAxis: "x",
+        animation: {
+          onComplete: () => {
+            delayed = true;
+          },
+          delay: (context) => {
+            let delay = 0;
+            if (context.type === 'data' && context.mode === 'default' && !delayed) {
+              delay = context.dataIndex * 300 + context.datasetIndex * 100;
+            }
+            return delay;
+          },
+        },
       }
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

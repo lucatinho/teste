@@ -2,6 +2,15 @@ table {
   width: 100%;
 }
 
-th.mat-sort-header-sorted {
-  color: black;
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+tr.mat-row, tr.mat-footer-row {
+  height: 42px;
 }
